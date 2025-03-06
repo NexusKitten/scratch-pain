@@ -6,12 +6,25 @@
     width: 8rem;
 }
 
+.layer-name {
+    padding: calc(3 * $grid-unit);
+}
+
 .layer-list {
     display: flex;
     max-width: 14rem;
-    width:100px;
     flex-direction: column;
     align-items: flex-start;
     align-content: flex-start;
     justify-content: space-between;
+}
+
+.list-item-div {
+    display: inline-flex;
+    height: $sprite-info-height;
+    box-sizing: border-box;
+    width: 100%;
+    padding: calc(1 * $grid-unit);
+    padding-left: 1rem;
+    padding-right: 1rem;
 }

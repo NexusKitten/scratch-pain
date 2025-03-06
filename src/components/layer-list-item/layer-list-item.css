@@ -1,0 +1,23 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+@import "../../css/filters.css";
+
+.list-item {
+    background-color: var(--paint-input-background, #FFFFFF);
+    border-color: var(--paint-form-border, #E9EEF2);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0.5rem;
+    box-sizing:border-box;
+    width:100%;
+    height:100%;
+    position: relative;
+}
+
+.layer-name {
+    position: absolute;
+    bottom: $grid-unit;
+    left: $grid-unit;
+    font-size: 1rem;
+    color: var(--paint-text-primary, #575e75);
+}
