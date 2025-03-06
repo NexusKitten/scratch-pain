@@ -68,7 +68,9 @@ const PaintEditorComponent = props => (
             <div className={styles.layerList}>
                 <LayerListContainer
                     name={props.name}
+                    image={props.image}
                     onUpdateName={props.onUpdateName}
+                    onUpdateImage={props.onUpdateImage}
                     width={props.width}
                 />
             </div>

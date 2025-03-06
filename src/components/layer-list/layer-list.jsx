@@ -1,6 +1,6 @@
 import React from 'react';
 import MediaQuery from 'react-responsive';
-import { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -51,7 +51,7 @@ const LayerListComponent = props => {
                     />
                 </MediaQuery>
             </InputGroup>
-            {listoflayers.map(layer =>
+            {props.listOfLayers.map(layer =>
             <div key={layer.id} className={styles.listItemDiv}>
                 <LayerListItemContainer
                     id={layer.id}
@@ -60,20 +60,14 @@ const LayerListComponent = props => {
                 />
             </div>
             )}
+            <button onClick={props.createNewLayer}></button>
         </div>
     );
+};
 
-    function PostTitle({ title }) {
-        return <h1>{title}</h1>
-      }
-      
-      function PostBody({ body }) {
-        return (
-          <article>
-            <p>{body}</p>
-          </article>
-        );
-      }
+LayerListComponent.propTypes = {
+    createNewLayer: PropTypes.func.isRequired,
+    listOfLayers: PropTypes.array,
 };
 
 export default (injectIntl(LayerListComponent));
