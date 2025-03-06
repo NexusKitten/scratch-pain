@@ -1,6 +1,6 @@
 import paper from '@turbowarp/paper';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -34,7 +34,7 @@ import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicat
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
 
-import Formats, {isBitmap, isVector} from '../../lib/format';
+import Formats, { isBitmap, isVector } from '../../lib/format';
 import styles from './paint-editor.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -42,6 +42,8 @@ import zoomInIcon from './icons/zoom-in.svg';
 import zoomOutIcon from './icons/zoom-out.svg';
 import zoomResetIcon from './icons/zoom-reset.svg';
 import themeIcon from './icons/theme.svg';
+
+import LayerListContainer from '../../containers/layer-list.jsx'
 
 const messages = defineMessages({
     bitmap: {
@@ -57,58 +59,42 @@ const messages = defineMessages({
 });
 
 const PaintEditorComponent = props => (
+
     <div
-        className={styles.editorContainer}
+        className={styles.editorAndLayerContainer}
         dir={props.rtl ? 'rtl' : 'ltr'}
-        data-paint-theme={props.theme}
     >
-        {props.canvas !== null ? ( // eslint-disable-line no-negated-condition
-            <div className={styles.editorContainerTop}>
-                {/* First row */}
-                <div className={styles.row}>
-                    <FixedToolsContainer
-                        canRedo={props.canRedo}
-                        canUndo={props.canUndo}
-                        name={props.name}
-                        onRedo={props.onRedo}
-                        onUndo={props.onUndo}
-                        onUpdateImage={props.onUpdateImage}
-                        onUpdateName={props.onUpdateName}
-                        width={props.width}
-                    />
-                </div>
-                {/* Second Row */}
-                {isVector(props.format) ?
+
+            <div className={styles.layerList}>
+                <LayerListContainer
+                    name={props.name}
+                    onUpdateName={props.onUpdateName}
+                    width={props.width}
+                />
+            </div>
+
+        <div
+            className={styles.editorContainer}
+            dir={props.rtl ? 'rtl' : 'ltr'}
+            data-paint-theme={props.theme}
+        >
+
+            {props.canvas !== null ? ( // eslint-disable-line no-negated-condition
+                <div className={styles.editorContainerTop}>
+                    {/* First row */}
                     <div className={styles.row}>
-                        <InputGroup
-                            className={classNames(
-                                styles.row,
-                                styles.modDashedBorder,
-                                styles.modLabeledIconHeight
-                            )}
-                        >
-                            {/* fill */}
-                            <FillColorIndicatorComponent
-                                className={styles.modMarginAfter}
-                                onUpdateImage={props.onUpdateImage}
-                            />
-                            {/* stroke */}
-                            <StrokeColorIndicatorComponent
-                                onUpdateImage={props.onUpdateImage}
-                            />
-                            {/* stroke width */}
-                            <StrokeWidthIndicatorComponent
-                                onUpdateImage={props.onUpdateImage}
-                            />
-                        </InputGroup>
-                        <InputGroup className={styles.modModeTools}>
-                            <ModeToolsContainer
-                                onUpdateImage={props.onUpdateImage}
-                                onManageFonts={props.onManageFonts}
-                            />
-                        </InputGroup>
-                    </div> :
-                    isBitmap(props.format) ?
+                        <FixedToolsContainer
+                            canRedo={props.canRedo}
+                            canUndo={props.canUndo}
+                            onRedo={props.onRedo}
+                            onUndo={props.onUndo}
+                            onUpdateImage={props.onUpdateImage}
+                            onUpdateName={props.onUpdateName}
+                            width={props.width}
+                        />
+                    </div>
+                    {/* Second Row */}
+                    {isVector(props.format) ?
                         <div className={styles.row}>
                             <InputGroup
                                 className={classNames(
@@ -122,6 +108,14 @@ const PaintEditorComponent = props => (
                                     className={styles.modMarginAfter}
                                     onUpdateImage={props.onUpdateImage}
                                 />
+                                {/* stroke */}
+                                <StrokeColorIndicatorComponent
+                                    onUpdateImage={props.onUpdateImage}
+                                />
+                                {/* stroke width */}
+                                <StrokeWidthIndicatorComponent
+                                    onUpdateImage={props.onUpdateImage}
+                                />
                             </InputGroup>
                             <InputGroup className={styles.modModeTools}>
                                 <ModeToolsContainer
@@ -129,103 +123,125 @@ const PaintEditorComponent = props => (
                                     onManageFonts={props.onManageFonts}
                                 />
                             </InputGroup>
-                        </div> : null
-                }
-            </div>
-        ) : null}
-
-        <div className={styles.topAlignRow}>
-            {/* Modes */}
-            {props.canvas !== null && isVector(props.format) ? ( // eslint-disable-line no-negated-condition
-                <div className={styles.modeSelector}>
-                    <SelectMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <ReshapeMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BrushMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <EraserMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <FillMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <TextMode
-                        textArea={props.textArea}
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <LineMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <OvalMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <RectMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
+                        </div> :
+                        isBitmap(props.format) ?
+                            <div className={styles.row}>
+                                <InputGroup
+                                    className={classNames(
+                                        styles.row,
+                                        styles.modDashedBorder,
+                                        styles.modLabeledIconHeight
+                                    )}
+                                >
+                                    {/* fill */}
+                                    <FillColorIndicatorComponent
+                                        className={styles.modMarginAfter}
+                                        onUpdateImage={props.onUpdateImage}
+                                    />
+                                </InputGroup>
+                                <InputGroup className={styles.modModeTools}>
+                                    <ModeToolsContainer
+                                        onUpdateImage={props.onUpdateImage}
+                                        onManageFonts={props.onManageFonts}
+                                    />
+                                </InputGroup>
+                            </div> : null
+                    }
                 </div>
             ) : null}
 
-            {props.canvas !== null && isBitmap(props.format) ? ( // eslint-disable-line no-negated-condition
-                <div className={styles.modeSelector}>
-                    <BitBrushMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BitLineMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BitOvalMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BitRectMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <TextMode
-                        isBitmap
-                        textArea={props.textArea}
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BitFillMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BitEraserMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <BitSelectMode
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                </div>
-            ) : null}
+            <div className={styles.topAlignRow}>
+                {/* Modes */}
+                {props.canvas !== null && isVector(props.format) ? ( // eslint-disable-line no-negated-condition
+                    <div className={styles.modeSelector}>
+                        <SelectMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <ReshapeMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BrushMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <EraserMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <FillMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <TextMode
+                            textArea={props.textArea}
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <LineMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <OvalMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <RectMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                    </div>
+                ) : null}
 
-            <div className={styles.controlsContainer}>
-                {/* Canvas */}
-                <ScrollableCanvas
-                    canvas={props.canvas}
-                    hideScrollbars={props.isEyeDropping}
-                    style={styles.canvasContainer}
-                >
-                    <PaperCanvas
-                        canvasRef={props.setCanvas}
-                        image={props.image}
-                        imageFormat={props.imageFormat}
-                        imageId={props.imageId}
-                        rotationCenterX={props.rotationCenterX}
-                        rotationCenterY={props.rotationCenterY}
-                        theme={props.theme}
-                        zoomLevelId={props.zoomLevelId}
-                        onUpdateImage={props.onUpdateImage}
-                    />
-                    <textarea
-                        className={styles.textArea}
-                        ref={props.setTextArea}
-                        spellCheck={false}
-                    />
-                    {props.isEyeDropping &&
-                        props.colorInfo !== null &&
-                        !props.colorInfo.hideLoupe ? (
+                {props.canvas !== null && isBitmap(props.format) ? ( // eslint-disable-line no-negated-condition
+                    <div className={styles.modeSelector}>
+                        <BitBrushMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BitLineMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BitOvalMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BitRectMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <TextMode
+                            isBitmap
+                            textArea={props.textArea}
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BitFillMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BitEraserMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <BitSelectMode
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                    </div>
+                ) : null}
+
+                <div className={styles.controlsContainer}>
+                    {/* Canvas */}
+                    <ScrollableCanvas
+                        canvas={props.canvas}
+                        hideScrollbars={props.isEyeDropping}
+                        style={styles.canvasContainer}
+                    >
+                        <PaperCanvas
+                            canvasRef={props.setCanvas}
+                            image={props.image}
+                            imageFormat={props.imageFormat}
+                            imageId={props.imageId}
+                            rotationCenterX={props.rotationCenterX}
+                            rotationCenterY={props.rotationCenterY}
+                            theme={props.theme}
+                            zoomLevelId={props.zoomLevelId}
+                            onUpdateImage={props.onUpdateImage}
+                        />
+                        <textarea
+                            className={styles.textArea}
+                            ref={props.setTextArea}
+                            spellCheck={false}
+                        />
+                        {props.isEyeDropping &&
+                            props.colorInfo !== null &&
+                            !props.colorInfo.hideLoupe ? (
                             <Box className={styles.colorPickerWrapper}>
                                 <Loupe
                                     colorInfo={props.colorInfo}
@@ -234,27 +250,13 @@ const PaintEditorComponent = props => (
                                 />
                             </Box>
                         ) : null
-                    }
-                </ScrollableCanvas>
-                <div className={styles.canvasControls}>
-                    {isVector(props.format) ?
-                        <Button
-                            className={styles.bitmapButton}
-                            onClick={props.onSwitchToBitmap}
-                        >
-                            <img
-                                className={styles.bitmapButtonIcon}
-                                draggable={false}
-                                src={bitmapIcon}
-                            />
-                            <span className={styles.buttonText}>
-                                {props.intl.formatMessage(messages.bitmap)}
-                            </span>
-                        </Button> :
-                        isBitmap(props.format) ?
+                        }
+                    </ScrollableCanvas>
+                    <div className={styles.canvasControls}>
+                        {isVector(props.format) ?
                             <Button
                                 className={styles.bitmapButton}
-                                onClick={props.onSwitchToVector}
+                                onClick={props.onSwitchToBitmap}
                             >
                                 <img
                                     className={styles.bitmapButtonIcon}
@@ -262,61 +264,76 @@ const PaintEditorComponent = props => (
                                     src={bitmapIcon}
                                 />
                                 <span className={styles.buttonText}>
-                                    {props.intl.formatMessage(messages.vector)}
+                                    {props.intl.formatMessage(messages.bitmap)}
                                 </span>
-                            </Button> : null
-                    }
-                    {/* Zoom controls */}
-                    <InputGroup className={styles.zoomControls}>
-                        <ButtonGroup>
-                            <Button
-                                className={styles.buttonGroupButton}
-                                onClick={props.onZoomOut}
-                            >
-                                <img
-                                    alt="Zoom Out"
-                                    className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
-                                    src={zoomOutIcon}
-                                />
-                            </Button>
-                            <Button
-                                className={styles.buttonGroupButton}
-                                onClick={props.onZoomReset}
-                            >
-                                <img
-                                    alt="Zoom Reset"
-                                    className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
-                                    src={zoomResetIcon}
-                                />
-                            </Button>
-                            <Button
-                                className={styles.buttonGroupButton}
-                                onClick={props.onZoomIn}
-                            >
-                                <img
-                                    alt="Zoom In"
-                                    className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
-                                    src={zoomInIcon}
-                                />
-                            </Button>
-                        </ButtonGroup>
-                        <ButtonGroup>
-                            <Button
-                                className={styles.buttonGroupButton}
-                                onClick={props.onChangeTheme}
-                            >
-                                <img
-                                    alt="Change theme"
-                                    className={styles.buttonGroupButtonIcon}
-                                    draggable={false}
-                                    src={themeIcon}
-                                />
-                            </Button>
-                        </ButtonGroup>
-                    </InputGroup>
+                            </Button> :
+                            isBitmap(props.format) ?
+                                <Button
+                                    className={styles.bitmapButton}
+                                    onClick={props.onSwitchToVector}
+                                >
+                                    <img
+                                        className={styles.bitmapButtonIcon}
+                                        draggable={false}
+                                        src={bitmapIcon}
+                                    />
+                                    <span className={styles.buttonText}>
+                                        {props.intl.formatMessage(messages.vector)}
+                                    </span>
+                                </Button> : null
+                        }
+                        {/* Zoom controls */}
+                        <InputGroup className={styles.zoomControls}>
+                            <ButtonGroup>
+                                <Button
+                                    className={styles.buttonGroupButton}
+                                    onClick={props.onZoomOut}
+                                >
+                                    <img
+                                        alt="Zoom Out"
+                                        className={styles.buttonGroupButtonIcon}
+                                        draggable={false}
+                                        src={zoomOutIcon}
+                                    />
+                                </Button>
+                                <Button
+                                    className={styles.buttonGroupButton}
+                                    onClick={props.onZoomReset}
+                                >
+                                    <img
+                                        alt="Zoom Reset"
+                                        className={styles.buttonGroupButtonIcon}
+                                        draggable={false}
+                                        src={zoomResetIcon}
+                                    />
+                                </Button>
+                                <Button
+                                    className={styles.buttonGroupButton}
+                                    onClick={props.onZoomIn}
+                                >
+                                    <img
+                                        alt="Zoom In"
+                                        className={styles.buttonGroupButtonIcon}
+                                        draggable={false}
+                                        src={zoomInIcon}
+                                    />
+                                </Button>
+                            </ButtonGroup>
+                            <ButtonGroup>
+                                <Button
+                                    className={styles.buttonGroupButton}
+                                    onClick={props.onChangeTheme}
+                                >
+                                    <img
+                                        alt="Change theme"
+                                        className={styles.buttonGroupButtonIcon}
+                                        draggable={false}
+                                        src={themeIcon}
+                                    />
+                                </Button>
+                            </ButtonGroup>
+                        </InputGroup>
+                    </div>
                 </div>
             </div>
         </div>

@@ -33,11 +33,6 @@ import TWRenderRecoloredImage from '../../tw-recolor/render.jsx';
 
 const BufferedInput = BufferedInputHOC(Input);
 const messages = defineMessages({
-    costume: {
-        id: 'paint.paintEditor.costume',
-        description: 'Label for the name of a costume',
-        defaultMessage: 'Costume'
-    },
     group: {
         defaultMessage: 'Group',
         description: 'Label for the button to group shapes',
@@ -91,28 +86,6 @@ const FixedToolsComponent = props => {
 
     return (
         <div className={styles.row}>
-            {/* Name field */}
-            <InputGroup>
-                <MediaQuery minWidth={layout.fullSizeEditorMinWidth + (props.width - layout.referenceWidth)}>
-                    <Label text={props.intl.formatMessage(messages.costume)}>
-                        <BufferedInput
-                            className={styles.costumeInput}
-                            type="text"
-                            value={props.name}
-                            onSubmit={props.onUpdateName}
-                        />
-                    </Label>
-                </MediaQuery>
-                <MediaQuery maxWidth={layout.fullSizeEditorMinWidth + (props.width - layout.referenceWidth) - 1}>
-                    <BufferedInput
-                        className={styles.costumeInput}
-                        type="text"
-                        value={props.name}
-                        onSubmit={props.onUpdateName}
-                    />
-                </MediaQuery>
-            </InputGroup>
-
             {/* Undo/Redo */}
             <InputGroup>
                 <ButtonGroup>

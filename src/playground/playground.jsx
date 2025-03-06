@@ -35,7 +35,8 @@ class Playground extends React.Component {
             'downloadImage',
             'handleUpdateName',
             'handleUpdateImage',
-            'onUploadImage'
+            'onUploadImage',
+            'updateStageSize',
         ]);
         // Append ?dir=rtl to URL to get RTL layout
         const match = location.search.match(/dir=([^&]+)/);
@@ -166,6 +167,18 @@ class Playground extends React.Component {
             });
        }
     }
+
+    updateStageSize(event) {
+        console.log(event.target.value);
+        switch (event.target.id) {
+            case "x":
+                this.setState({width: Number(event.target.value)});
+                break;
+            case "y":
+                this.setState({height: Number(event.target.value)});
+        }
+    }
+    
     render () {
         return (
             <div className={styles.wrapper}>
@@ -177,6 +190,8 @@ class Playground extends React.Component {
                 <button className={styles.playgroundButton}  onClick={this.uploadImage}>Upload</button>
                 <input id={styles.fileInput} type="file" name="name" onChange={this.onUploadImage} />
                 <button className={styles.playgroundButton} onClick={this.downloadImage}>Download</button>
+                <input id="x" placeholder="480" type="number" className={styles.playgroundButton} onChange={this.updateStageSize}></input>
+                <input id="y" placeholder="360" type="number" className={styles.playgroundButton} onChange={this.updateStageSize}></input>
             </div>
         );
     }
