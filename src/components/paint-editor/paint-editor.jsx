@@ -65,15 +65,18 @@ const PaintEditorComponent = props => (
         dir={props.rtl ? 'rtl' : 'ltr'}
     >
 
-            <div className={styles.layerList}>
-                <LayerListContainer
-                    name={props.name}
-                    image={props.image}
-                    onUpdateName={props.onUpdateName}
-                    onUpdateImage={props.onUpdateImage}
-                    width={props.width}
-                />
-            </div>
+        <div className={styles.layerList}>
+            <LayerListContainer
+                name={props.name}
+                image={props.image}
+                imageFormat={props.imageFormat}
+                rotationCenterX={props.rotationCenterX}
+                rotationCenterY={props.rotationCenterY}
+                onUpdateName={props.onUpdateName}
+                onUpdateImage={props.onUpdateImage}
+                width={props.width}
+            />
+        </div>
 
         <div
             className={styles.editorContainer}

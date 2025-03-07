@@ -1,6 +1,5 @@
 import React from 'react';
-import MediaQuery from 'react-responsive';
-import { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -19,13 +18,16 @@ const messages = defineMessages({
     }
 });
 
-const LayerListComponent = props => {
+const LayerListItemComponent = props => {
 
     return (
-        <div key={props.id} className={styles.listItem}>
+        <div key={props.id} className={styles.listItem} onClick={props.setActiveLayer}>
             <span className={styles.layerName}>{props.name}</span>
         </div>
     );
 };
 
-export default (injectIntl(LayerListComponent));
+LayerListItemComponent.propTypes = {
+    setActiveLayer: PropTypes.func.isRequired,
+};
+export default (injectIntl(LayerListItemComponent));
