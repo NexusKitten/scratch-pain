@@ -2,12 +2,12 @@ import React from 'react';
 import MediaQuery from 'react-responsive';
 import { Fragment } from 'react';
 
-import BufferedInputHOC from '../forms/buffered-input-hoc.jsx';
+import BufferedInputHOC from '../../../components/forms/buffered-input-hoc.jsx';
 import { defineMessages, injectIntl } from 'react-intl';
-import Input from '../forms/input.jsx';
-import InputGroup from '../input-group/input-group.jsx';
-import Label from '../forms/label.jsx';
-import layout from '../../lib/layout-constants';
+import Input from '../../../components/forms/input.jsx';
+import InputGroup from '../../../components/input-group/input-group.jsx';
+import Label from '../../../components/forms/label.jsx';
+import layout from '../../../lib/layout-constants.js';
 import styles from './layer-list-item.css';
 
 const BufferedInput = BufferedInputHOC(Input);

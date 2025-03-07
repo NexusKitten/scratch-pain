@@ -6,18 +6,24 @@ import bindAll from 'lodash.bindall';
 import LayerListItemComponent from '../components/layer-list-item/layer-list-item.jsx';
 
 class LayerListItemContainer extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
+            'changeLayer'
         ]);
     }
-    render () {
+    changeLayer() {
+        this.props.setActiveLayer(this.props.id);
+    }
+    render() {
         return (
-            <LayerListItemComponent
-                name={this.props.name}
-                id={this.props.id}
-                src={this.props.src}
-            />
+            <div onClick={this.changeLayer}>
+                <LayerListItemComponent
+                    name={this.props.name}
+                    id={this.props.id}
+                    src={this.props.src}
+                />
+            </div>
         );
     }
 }
@@ -26,6 +32,7 @@ LayerListItemContainer.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     src: PropTypes.string,
+    setActiveLayer: PropTypes.func.isRequired,
 };
 
 export default (LayerListItemContainer);

@@ -1,6 +1,6 @@
-@import "../../css/colors.css";
-@import "../../css/units.css";
-@import "../../css/filters.css";
+@import "../../../css/colors.css";
+@import "../../../css/units.css";
+@import "../../../css/filters.css";
 
 .costume-input {
     width: 8rem;
@@ -12,7 +12,7 @@
 
 .layer-list {
     display: flex;
-    max-width: 14rem;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     align-content: flex-start;
