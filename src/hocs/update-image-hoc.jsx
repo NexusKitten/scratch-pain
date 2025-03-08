@@ -135,8 +135,9 @@ const UpdateImageHOC = function (WrappedComponent) {
             }
             const guideLayers = hideGuideLayers(true /* includeRaster */);
 
-            // Export at 0.5x
-            scaleWithStrokes(paper.project.activeLayer, .5, new paper.Point());
+            // Commenting this out has somewhat broken SVG exporting-- SVG images now export at double the size. I'm sure there's a better solution than what was implemented before.
+
+            // scaleWithStrokes(paper.project.activeLayer, .5, new paper.Point());
 
             const bounds = paper.project.activeLayer.drawnBounds;
 
@@ -156,7 +157,7 @@ const UpdateImageHOC = function (WrappedComponent) {
                 }),
                 centerX,
                 centerY);
-            scaleWithStrokes(paper.project.activeLayer, 2, new paper.Point());
+            // scaleWithStrokes(paper.project.activeLayer, 2, new paper.Point());
             paper.project.activeLayer.applyMatrix = true;
 
             showGuideLayers(guideLayers);

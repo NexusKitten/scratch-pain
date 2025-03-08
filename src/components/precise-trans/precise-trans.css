@@ -1,0 +1,13 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+
+.inputs {
+    padding-left: calc(2 * $grid-unit);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.numeral-input {
+    width: 3rem;
+}

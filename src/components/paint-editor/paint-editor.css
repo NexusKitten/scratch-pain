@@ -19,6 +19,7 @@
 .editor-container-top {
     border-bottom: 1px dashed $ui-pane-border;
     padding-bottom: calc(2 * $grid-unit);
+    width: min-content;
 }
 
 .top-align-row {

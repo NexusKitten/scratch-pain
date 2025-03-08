@@ -33,6 +33,7 @@ import SelectMode from '../../containers/select-mode.jsx';
 import StrokeColorIndicatorComponent from '../../containers/stroke-color-indicator.jsx';
 import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicator.jsx';
 import TextMode from '../../containers/text-mode.jsx';
+import PreciseTrans from '../../containers/precise-trans.jsx';
 
 import Formats, {isBitmap, isVector} from '../../lib/format';
 import styles from './paint-editor.css';
@@ -75,6 +76,12 @@ const PaintEditorComponent = props => (
                         onUpdateImage={props.onUpdateImage}
                         onUpdateName={props.onUpdateName}
                         width={props.width}
+                    />
+                    {/* Precise transformation variables */}
+                    <PreciseTrans
+                        onUpdateImage={props.onUpdateImage}
+                        imageId={props.imageId}
+                        image={props.image}
                     />
                 </div>
                 {/* Second Row */}
