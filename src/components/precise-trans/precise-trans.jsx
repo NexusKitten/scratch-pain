@@ -32,6 +32,14 @@ const PreciseTransComp = props => {
                         onSubmit={props.onTransYChange}
                     />
                 </Label>
+                <Label text={"rotation"}>
+                    <BufferedInput
+                        className={styles.numeralInput}
+                        type="number"
+                        value={Math.floor(props.rot)}
+                        onSubmit={props.onRotChange}
+                    />
+                </Label>
             </InputGroup>
         </div>
     );
@@ -40,8 +48,10 @@ const PreciseTransComp = props => {
 PreciseTransComp.propTypes = {
     onTransXChange: PropTypes.func.isRequired,
     onTransYChange: PropTypes.func.isRequired,
+    onRotChange: PropTypes.func.isRequired,
     x: propTypes.number,
     y: propTypes.number,
+    rot: propTypes.number,
 };
 
 export default (PreciseTransComp);

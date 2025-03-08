@@ -38,6 +38,8 @@ class RotateTool {
         for (let i = 0; i < this.rotItems.length; i++) {
             const item = this.rotItems[i];
 
+            // store total rotation for use in precise-trans.jsx
+            item.data.rotation += rotAngle - this.prevRot;
             item.rotate(rotAngle - this.prevRot, this.rotGroupPivot);
         }
 

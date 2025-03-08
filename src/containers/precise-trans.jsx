@@ -17,9 +17,25 @@ class PreciseTrans extends React.Component {
         bindAll(this, [
             'onTransXChange',
             'onTransYChange',
+            'updateAngle',
+            'onRotChange',
             'translateSelection',
             'updateExposedBounds'
         ]);
+    }
+
+    componentWillReceiveProps(newProps) {
+        // Strictly compare, since selectedItems updates frequently even when it's contents are static.
+        const a = this.props.selectedItems;
+        const b = newProps.selectedItems;
+        if (!(a.length === b.length && a.every((element, index) => element === b[index]))) {
+            const selected = getSelectedRootItems();
+            if (selected.length === 0) return;
+            for (const item of selected) {
+                item.data.rotation = 0;
+                console.log(item.data.rotation)
+            }
+        }
     }
 
     updateExposedBounds(axis) {
@@ -38,11 +54,52 @@ class PreciseTrans extends React.Component {
                 return rect.center._x;
             case "y":
                 return rect.center._y;
+            case "center":
+                return rect.center;
         }
         return;
     }
 
+    castToNormalAngle(angle) {
+        if (Math.sign(angle) === -1) {
+            return ((angle - 180) % 360) + 180;
+        } else {
+            return ((angle + 180) % 360) - 180;
+        }
+    }
+
+    updateAngle() {
+        const selected = getSelectedRootItems();
+        if (selected.length === 0) return;
+        console.log(selected[0]);
+        return this.castToNormalAngle(selected[0].data.rotation);
+    }
+
+    onRotChange(angle) {
+        // adapted from rotate-tool.js
+        let oldRot = this.updateAngle();
+        let rotChange = this.castToNormalAngle(angle) - oldRot;
+
+        let rotGroupPivot = this.updateExposedBounds("center");
+        let rotItems = [];
+        for (const item of this.props.selectedItems) {
+            if (item.parent instanceof paper.Layer) {
+                rotItems.push(item);
+            }
+        }
+
+        for (let i = 0; i < rotItems.length; i++) {
+            const item = rotItems[i];
+
+            item.data.rotation = angle;
+            item.rotate(rotChange, rotGroupPivot);
+        }
+        this.props.redrawSelectionBox();
+        this.props.onUpdateImage();
+    }
+
     translateSelection(translation) {
+        // adapted from nudge-tool.js
         const selected = getSelectedRootItems();
         if (translation) {
             for (const item of selected) {
@@ -66,7 +123,9 @@ class PreciseTrans extends React.Component {
             < PreciseTransComp
                 x={this.updateExposedBounds("x") ?? 0}
                 y={this.updateExposedBounds("y") ?? 0}
+                rot={this.updateAngle() ?? 0}
                 onTransXChange={this.onTransXChange}
+                onRotChange={this.onRotChange}
                 onTransYChange={this.onTransYChange}
             />
             : <div></div>)
@@ -80,7 +139,6 @@ PreciseTrans.propTypes = {
 
 const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
-    // selectedItems is unused, but it being a property updates the component whenever a selection is updated.
     selectedItems: state.scratchPaint.selectedItems,
 });
 
