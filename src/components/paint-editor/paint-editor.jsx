@@ -1,6 +1,6 @@
 import paper from '@turbowarp/paper';
 import classNames from 'classnames';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -35,7 +35,7 @@ import StrokeWidthIndicatorComponent from '../../containers/stroke-width-indicat
 import TextMode from '../../containers/text-mode.jsx';
 import PreciseTrans from '../../containers/precise-trans.jsx';
 
-import Formats, {isBitmap, isVector} from '../../lib/format';
+import Formats, { isBitmap, isVector } from '../../lib/format';
 import styles from './paint-editor.css';
 
 import bitmapIcon from './icons/bitmap.svg';
@@ -64,58 +64,23 @@ const PaintEditorComponent = props => (
         data-paint-theme={props.theme}
     >
         {props.canvas !== null ? ( // eslint-disable-line no-negated-condition
-            <div className={styles.editorContainerTop}>
-                {/* First row */}
-                <div className={styles.row}>
-                    <FixedToolsContainer
-                        canRedo={props.canRedo}
-                        canUndo={props.canUndo}
-                        name={props.name}
-                        onRedo={props.onRedo}
-                        onUndo={props.onUndo}
-                        onUpdateImage={props.onUpdateImage}
-                        onUpdateName={props.onUpdateName}
-                        width={props.width}
-                    />
-                    {/* Precise transformation variables */}
-                    <PreciseTrans
-                        onUpdateImage={props.onUpdateImage}
-                        imageId={props.imageId}
-                        image={props.image}
-                    />
-                </div>
-                {/* Second Row */}
-                {isVector(props.format) ?
+            <div className={styles.editorTopWrapper}>
+                <div className={styles.editorContainerTop}>
+                    {/* First row */}
                     <div className={styles.row}>
-                        <InputGroup
-                            className={classNames(
-                                styles.row,
-                                styles.modDashedBorder,
-                                styles.modLabeledIconHeight
-                            )}
-                        >
-                            {/* fill */}
-                            <FillColorIndicatorComponent
-                                className={styles.modMarginAfter}
-                                onUpdateImage={props.onUpdateImage}
-                            />
-                            {/* stroke */}
-                            <StrokeColorIndicatorComponent
-                                onUpdateImage={props.onUpdateImage}
-                            />
-                            {/* stroke width */}
-                            <StrokeWidthIndicatorComponent
-                                onUpdateImage={props.onUpdateImage}
-                            />
-                        </InputGroup>
-                        <InputGroup className={styles.modModeTools}>
-                            <ModeToolsContainer
-                                onUpdateImage={props.onUpdateImage}
-                                onManageFonts={props.onManageFonts}
-                            />
-                        </InputGroup>
-                    </div> :
-                    isBitmap(props.format) ?
+                        <FixedToolsContainer
+                            canRedo={props.canRedo}
+                            canUndo={props.canUndo}
+                            name={props.name}
+                            onRedo={props.onRedo}
+                            onUndo={props.onUndo}
+                            onUpdateImage={props.onUpdateImage}
+                            onUpdateName={props.onUpdateName}
+                            width={props.width}
+                        />
+                    </div>
+                    {/* Second Row */}
+                    {isVector(props.format) ?
                         <div className={styles.row}>
                             <InputGroup
                                 className={classNames(
@@ -129,6 +94,14 @@ const PaintEditorComponent = props => (
                                     className={styles.modMarginAfter}
                                     onUpdateImage={props.onUpdateImage}
                                 />
+                                {/* stroke */}
+                                <StrokeColorIndicatorComponent
+                                    onUpdateImage={props.onUpdateImage}
+                                />
+                                {/* stroke width */}
+                                <StrokeWidthIndicatorComponent
+                                    onUpdateImage={props.onUpdateImage}
+                                />
                             </InputGroup>
                             <InputGroup className={styles.modModeTools}>
                                 <ModeToolsContainer
@@ -136,8 +109,37 @@ const PaintEditorComponent = props => (
                                     onManageFonts={props.onManageFonts}
                                 />
                             </InputGroup>
-                        </div> : null
-                }
+                        </div> :
+                        isBitmap(props.format) ?
+                            <div className={styles.row}>
+                                <InputGroup
+                                    className={classNames(
+                                        styles.row,
+                                        styles.modDashedBorder,
+                                        styles.modLabeledIconHeight
+                                    )}
+                                >
+                                    {/* fill */}
+                                    <FillColorIndicatorComponent
+                                        className={styles.modMarginAfter}
+                                        onUpdateImage={props.onUpdateImage}
+                                    />
+                                </InputGroup>
+                                <InputGroup className={styles.modModeTools}>
+                                    <ModeToolsContainer
+                                        onUpdateImage={props.onUpdateImage}
+                                        onManageFonts={props.onManageFonts}
+                                    />
+                                </InputGroup>
+                            </div> : null
+                    }
+                </div>
+                {/* Precise transformation variables */}
+                <PreciseTrans
+                    onUpdateImage={props.onUpdateImage}
+                    imageId={props.imageId}
+                    image={props.image}
+                />
             </div>
         ) : null}
 
@@ -233,14 +235,14 @@ const PaintEditorComponent = props => (
                     {props.isEyeDropping &&
                         props.colorInfo !== null &&
                         !props.colorInfo.hideLoupe ? (
-                            <Box className={styles.colorPickerWrapper}>
-                                <Loupe
-                                    colorInfo={props.colorInfo}
-                                    pixelRatio={paper.project.view.pixelRatio}
-                                    theme={props.theme}
-                                />
-                            </Box>
-                        ) : null
+                        <Box className={styles.colorPickerWrapper}>
+                            <Loupe
+                                colorInfo={props.colorInfo}
+                                pixelRatio={paper.project.view.pixelRatio}
+                                theme={props.theme}
+                            />
+                        </Box>
+                    ) : null
                     }
                 </ScrollableCanvas>
                 <div className={styles.canvasControls}>

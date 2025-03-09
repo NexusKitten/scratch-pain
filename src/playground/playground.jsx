@@ -40,6 +40,7 @@ class Playground extends React.Component {
         // Append ?dir=rtl to URL to get RTL layout
         const match = location.search.match(/dir=([^&]+)/);
         const rtl = match && match[1] == 'rtl';
+        if (rtl) alert("Right-to-left mode is currently not supported. There may be unintended functionality and visual glitches with this setting enabled.");
         this.id = 0;
         this.state = {
             name: 'meow',

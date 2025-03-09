@@ -10,6 +10,11 @@
     padding: calc(3 * $grid-unit);
 }
 
+.editor-top-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
 .row {
     display: flex;
     flex-direction: row;

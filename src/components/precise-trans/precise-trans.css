@@ -1,6 +1,17 @@
 @import "../../css/colors.css";
 @import "../../css/units.css";
 
+
+[dir="ltr"] .mod-dashed-border {
+    border-right: 1px dashed $ui-pane-border;
+    padding-right: calc(4 * $grid-unit);
+}
+
+[dir="rtl"] .mod-dashed-border {
+    border-left: 1px dashed $ui-pane-border;
+    padding-left: calc(4 * $grid-unit);
+}
+
 .inputs {
     padding-left: calc(2 * $grid-unit);
     display: flex;
@@ -8,6 +19,31 @@
     align-items: center;
 }
 
+.inputs + .inputs {
+    margin-top: calc(2 * $grid-unit);
+}
+
+.editor-top-bar {
+    display: flex;
+    flex-direction: column;
+}
+
 .numeral-input {
+    align-self: center;
     width: 3rem;
+}
+
+.mode-tools-icon {
+    margin-left: calc(2 * $grid-unit);
+    margin-right: calc(4 * $grid-unit);
+    width: 2rem;
+    height: 2rem;
+}
+
+.edit-field-icon {
+    margin: calc(2 * $grid-unit);
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-grow: 1;
+    vertical-align: middle;
 }
