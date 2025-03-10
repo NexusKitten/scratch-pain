@@ -67,9 +67,7 @@ const PaintEditorComponent = props => (
         <div
             className={styles.playgroundSidebar}
         >
-            <SettingsContainer
-            
-            />
+            <SettingsContainer/>
         </div>
         <div
             className={styles.editorContainer}

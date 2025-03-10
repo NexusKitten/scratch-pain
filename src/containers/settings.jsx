@@ -23,7 +23,12 @@ class SettingsContainer extends React.Component {
         bindAll(this, [
             'updateSettingToggle',
             'updateLocalStorage',
+            'toggleSettings',
         ]);
+
+        this.state = {
+            showSettings: false
+        }
 
         // import settings from local storage
         let storedSettings = localStorage.getItem("settings");
@@ -53,11 +58,21 @@ class SettingsContainer extends React.Component {
         this.updateLocalStorage(id, val);
     }
 
+    toggleSettings () {
+        this.setState({
+            showSettings: !this.state.showSettings
+        });
+    }
+
     render() {
         return (
-            < SettingsComp
-                onChange={this.updateSettingToggle}
-            />
+            <div>
+                < SettingsComp
+                    toggleSettings={this.toggleSettings}
+                    onChange={this.updateSettingToggle}
+                    showSettings={this.state.showSettings}
+                />
+            </div>
         )
     }
 }

@@ -9,4 +9,40 @@ const Settings = keyMirror({
     THEME: null,
  });
 
-export default Settings;
+const settingsData = [
+    {
+        name: "Start as vector?",
+        description: "",
+        id: Settings.START_VECTOR,
+        type: "bool",
+        default: true,
+    },
+    {
+        name: "Curve vector points by default?",
+        description: "",
+        id: Settings.VECTOR_POINT_SHAPE,
+        type: "bool",
+        default: true,
+    },
+    "---",
+    {
+        name: "Shift pasted items?",
+        description: "",
+        id: Settings.SHIFT_ITEMS,
+        type: "bool",
+        default: false,
+    },
+    "---",
+    {
+        name: "Dark Mode?",
+        description: "",
+        id: Settings.DARK_MODE,
+        type: "bool",
+        default: false,
+    },
+]
+
+export {
+    Settings as default,
+    settingsData
+}

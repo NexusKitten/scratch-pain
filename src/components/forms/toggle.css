@@ -15,6 +15,7 @@
 .checkmark {
   position: absolute;
   box-sizing: border-box;
+  cursor: pointer;
   top: 0;
   left: 0;
   height: 1.5rem;
@@ -33,12 +34,7 @@
     border: 1px;
 }
 
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-  background-color: $looks-transparent;
-}
-
-/* When the checkbox is checked, add a blue background */
+/* When the checkbox is checked, add a background */
 .container input:checked ~ .checkmark {
   background-color: $looks-secondary;
 }
