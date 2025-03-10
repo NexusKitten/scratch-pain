@@ -80,8 +80,10 @@ const CopyPasteHOC = function (WrappedComponent) {
             for (const item of items) {
                 const placedItem = paper.project.getActiveLayer().addChild(item);
                 placedItem.selected = true;
-                placedItem.position.x += 10 * this.props.pasteOffset;
-                placedItem.position.y += 10 * this.props.pasteOffset;
+                if (this.props.SHIFT_ITEMS) {
+                    placedItem.position.x += 10 * this.props.pasteOffset;
+                    placedItem.position.y += 10 * this.props.pasteOffset;
+                }
             }
             this.props.incrementPasteOffset();
             this.props.setSelectedItems(this.props.format);
@@ -119,6 +121,7 @@ const CopyPasteHOC = function (WrappedComponent) {
         setSelectedItems: PropTypes.func.isRequired
     };
     const mapStateToProps = state => ({
+        SHIFT_ITEMS: state.scratchPaint.settings.SHIFT_ITEMS ?? false,
         clipboardItems: state.scratchPaint.clipboard.items,
         format: state.scratchPaint.format,
         mode: state.scratchPaint.mode,

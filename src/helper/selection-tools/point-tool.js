@@ -9,7 +9,7 @@ class PointTool {
      * @param {function} clearSelectedItems Callback to clear the set of selected items in the Redux state
      * @param {!function} onUpdateImage A callback to call when the image visibly changes
      */
-    constructor (setSelectedItems, clearSelectedItems, onUpdateImage) {
+    constructor(setSelectedItems, clearSelectedItems, onUpdateImage, VECTOR_POINT_SHAPE) {
         /**
          * Deselection often does not happen until mouse up. If the mouse is dragged before
          * mouse up, deselection is cancelled. This variable keeps track of which paper.Item to deselect.
@@ -30,6 +30,7 @@ class PointTool {
         this.clearSelectedItems = clearSelectedItems;
         this.lastPoint = null;
         this.onUpdateImage = onUpdateImage;
+        this.VECTOR_POINT_SHAPE = VECTOR_POINT_SHAPE;
     }
 
     /**
@@ -70,7 +71,9 @@ class PointTool {
         const newSegment = hitProperties.hitResult.item.divideAt(hitProperties.hitResult.location);
 
         // If we're adding a point in the middle of a straight line, it won't be smooth by default, so smooth it
-        if (!newSegment.hasHandles()) newSegment.smooth();
+        if (this.VECTOR_POINT_SHAPE) {
+            if (!newSegment.hasHandles()) newSegment.smooth();
+        }
 
         hitProperties.hitResult.segment = newSegment;
         if (!hitProperties.multiselect) {

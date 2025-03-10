@@ -60,7 +60,7 @@ class ReshapeTool extends paper.Tool {
      * @param {!function} switchToTextTool A callback to call to switch to the text tool
      */
     constructor (setHoveredItem, clearHoveredItem, setSelectedItems, clearSelectedItems, onUpdateImage,
-        switchToTextTool) {
+        switchToTextTool, VECTOR_POINT_SHAPE) {
         super();
         this.setHoveredItem = setHoveredItem;
         this.clearHoveredItem = clearHoveredItem;
@@ -72,7 +72,7 @@ class ReshapeTool extends paper.Tool {
         this._modeMap = {};
         this._modeMap[ReshapeModes.FILL] =
             new MoveTool(Modes.RESHAPE, setSelectedItems, clearSelectedItems, onUpdateImage, switchToTextTool);
-        this._modeMap[ReshapeModes.POINT] = new PointTool(setSelectedItems, clearSelectedItems, onUpdateImage);
+        this._modeMap[ReshapeModes.POINT] = new PointTool(setSelectedItems, clearSelectedItems, onUpdateImage, VECTOR_POINT_SHAPE);
         this._modeMap[ReshapeModes.HANDLE] = new HandleTool(setSelectedItems, clearSelectedItems, onUpdateImage);
         this._modeMap[ReshapeModes.SELECTION_BOX] =
             new SelectionBoxTool(Modes.RESHAPE, setSelectedItems, clearSelectedItems);

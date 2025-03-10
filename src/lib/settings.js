@@ -1,16 +1,12 @@
 import keyMirror from 'keymirror';
 
 const Settings = keyMirror({
+    START_VECTOR: null,
+    VECTOR_POINT_SHAPE: null,
+    SHIFT_ITEMS: null,
+    ROT_SNAP: null,
     DARK_MODE: null,
-    ERASER: null,
-    LINE: null,
-    FILL: null,
-    SELECT: null,
-    RESHAPE: null,
-    OVAL: null,
-    RECT: null,
-    ROUNDED_RECT: null,
-    TEXT: null
+    THEME: null,
  });
 
 export default Settings;

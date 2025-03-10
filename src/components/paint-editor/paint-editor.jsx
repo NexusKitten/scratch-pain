@@ -64,13 +64,13 @@ const PaintEditorComponent = props => (
         dir={props.rtl ? 'rtl' : 'ltr'}
         data-paint-theme={props.theme}
     >
-{/*         <div
+        <div
             className={styles.playgroundSidebar}
         >
             <SettingsContainer
             
             />
-        </div> */}
+        </div>
         <div
             className={styles.editorContainer}
             dir={props.rtl ? 'rtl' : 'ltr'}

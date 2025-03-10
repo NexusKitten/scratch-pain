@@ -51,7 +51,8 @@ class ReshapeMode extends React.Component {
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
             this.props.onUpdateImage,
-            this.props.switchToTextTool
+            this.props.switchToTextTool,
+            this.props.VECTOR_POINT_SHAPE,
         );
         this.tool.setPrevHoveredItemId(this.props.hoveredItemId);
         this.tool.activate();
@@ -77,6 +78,7 @@ ReshapeMode.propTypes = {
     clearSelectedItems: PropTypes.func.isRequired,
     handleMouseDown: PropTypes.func.isRequired,
     hoveredItemId: PropTypes.number,
+    shouldCurvePoint: PropTypes.bool,
     isReshapeModeActive: PropTypes.bool.isRequired,
     onUpdateImage: PropTypes.func.isRequired,
     setHoveredItem: PropTypes.func.isRequired,
@@ -85,6 +87,7 @@ ReshapeMode.propTypes = {
 };
 
 const mapStateToProps = state => ({
+    VECTOR_POINT_SHAPE: state.scratchPaint.settings.VECTOR_POINT_SHAPE ?? false,
     isReshapeModeActive: state.scratchPaint.mode === Modes.RESHAPE,
     hoveredItemId: state.scratchPaint.hoveredItemId
 });

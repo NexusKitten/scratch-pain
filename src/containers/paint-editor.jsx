@@ -109,6 +109,12 @@ class PaintEditor extends React.Component {
         document.addEventListener('touchstart', this.onMouseDown);
         document.addEventListener('mouseup', this.onMouseUp);
         document.addEventListener('touchend', this.onMouseUp);
+
+        if (localStorage.getItem("settings") && !JSON.parse(localStorage.getItem("settings")).START_VECTOR) {
+            this.props.onUpdateImage();
+            convertToBitmap(this.props.clearSelectedItems, this.props.onUpdateImage, this.props.fontInlineFn);
+            this.props.handleSwitchToBitmap();
+        };
     }
     componentWillReceiveProps (newProps) {
         if (!isBitmap(this.props.format) && isBitmap(newProps.format)) {
@@ -428,7 +434,7 @@ const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
     previousTool: state.scratchPaint.color.eyeDropper.previousTool,
     reduxTheme: state.scratchPaint.theme,
-    viewBounds: state.scratchPaint.viewBounds
+    viewBounds: state.scratchPaint.viewBounds,
 });
 const mapDispatchToProps = dispatch => ({
     changeMode: mode => {

@@ -1,4 +1,3 @@
-import paper from '@turbowarp/paper';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -10,7 +9,12 @@ import bindAll from 'lodash.bindall';
 import Settings from '../lib/settings';
 
 const defaultSettings = {
+    START_VECTOR: true,
+    VECTOR_POINT_SHAPE: true,
+    SHIFT_ITEMS: false,
+    ROT_SNAP: true,
     DARK_MODE: false,
+    THEME: null,
 }
 
 class SettingsContainer extends React.Component {
@@ -29,6 +33,7 @@ class SettingsContainer extends React.Component {
             this.props.setAllSettings(storedSettings);
         } else {
             localStorage.setItem("settings", JSON.stringify(defaultSettings))
+            this.props.setAllSettings(defaultSettings);
         }
     }
 
@@ -40,6 +45,10 @@ class SettingsContainer extends React.Component {
     }
 
     updateSettingToggle(val, id) {
+        if (id === "DARK_MODE") {
+            alert("just kidding i havent implemented dark mode yet");
+            return;
+        }
         this.props.updateSetting(id, val);
         this.updateLocalStorage(id, val);
     }
@@ -55,7 +64,7 @@ class SettingsContainer extends React.Component {
 
 SettingsContainer.propTypes = {
     updateSetting: PropTypes.func.isRequired,
-    updateAllSettings: PropTypes.func.isRequired,
+    setAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
