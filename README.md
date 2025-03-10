@@ -1,8 +1,8 @@
 # NexusKitten/scratch-pain
 
-A very much unstable fork of TurboWarp/scratch-paint for personal use and experimentation.
+A work-in-progress fork of Scratch-paint that adds new quality of life features.
 
-Don't expect this to work. Ever. I'm just keeping this on GitHub so if I fuck up I can retrace my steps.
+I can't guarantee this'll work without unexpected behavior/bugs, I'm learning as I go and I'm prone to making mistakes. If you find a bug or otherwise have suggestions, feel free to [open an issue](https://github.com/NexusKitten/scratch-pain/issues) (or, if you're looking to contribute, a [pull request](https://github.com/NexusKitten/scratch-pain/pulls)).
 
 ## License
 
