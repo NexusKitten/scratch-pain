@@ -1,0 +1,23 @@
+@import "../../css/colors.css";
+@import "../../css/units.css";
+@import "../../css/filters.css";
+
+.setting-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 90%;
+    margin: auto;
+    cursor: pointer;
+    height: 2rem;
+}
+.label {
+    flex:1;
+    text-align: right;
+    height: min-content;
+}
+.toggle {
+    display: block;
+    position: relative;
+    left: 0px;
+}

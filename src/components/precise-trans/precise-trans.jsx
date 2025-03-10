@@ -12,8 +12,6 @@ import rotateIcon from '!../../tw-recolor/build!./icons/rotate.svg';
 import scaleIcon from '!../../tw-recolor/build!./icons/scale.svg';
 import translateIcon from '!../../tw-recolor/build!./icons/translate.svg';
 
-import propTypes from 'prop-types';
-
 const LiveInput = LiveInputHOC(Input);
 
 const PreciseTransComp = props => {
@@ -98,11 +96,11 @@ PreciseTransComp.propTypes = {
     onRotChange: PropTypes.func.isRequired,
     onWidthChange: PropTypes.func.isRequired,
     onHeightChange: PropTypes.func.isRequired,
-    x: propTypes.number,
-    y: propTypes.number,
-    rot: propTypes.number,
-    width: propTypes.number,
-    height: propTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    rot: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
 };
 
 export default (PreciseTransComp);

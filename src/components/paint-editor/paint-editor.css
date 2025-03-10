@@ -8,6 +8,21 @@
     display: flex;
     flex-direction: column;
     padding: calc(3 * $grid-unit);
+    overflow: hidden;
+}
+
+.playground-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.playground-sidebar {
+    width: 100%;
+    max-width: 14rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .editor-top-wrapper {
@@ -24,7 +39,6 @@
 .editor-container-top {
     border-bottom: 1px dashed $ui-pane-border;
     padding-bottom: calc(2 * $grid-unit);
-    width: min-content;
 }
 
 .top-align-row {
@@ -147,7 +161,7 @@ $border-radius: 0.25rem;
 
 .mode-selector {
     display: flex;
-    max-width: 7.5rem;
+    max-width: 6rem;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: flex-start;
